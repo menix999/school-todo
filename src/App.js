@@ -1,5 +1,13 @@
+import MainProvider from './context/MainProvider';
+import { GlobalStyle } from './theme/GlobalStyles';
+
 const App = () => {
-  return <div>TEST</div>;
+  return (
+    <MainProvider>
+      <GlobalStyle />
+      TEST
+    </MainProvider>
+  );
 };
 
 export default App;
