@@ -25,12 +25,14 @@
         "avoidEscape": true
       }
     ],
+    "import/prefer-default-export": "off",
+    "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "no-shadow": "off",
     "prettier/prettier": [
       "error",
-      { "singleQuote": true, "trailingComma": "all" }
+      { "singleQuote": true, "trailingComma": "all", "endOfLine": "auto" }
     ],
     "react/function-component-definition": [
       2,
