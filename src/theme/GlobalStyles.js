@@ -22,7 +22,7 @@ export const GlobalStyle = createGlobalStyle`
       overflow: hidden;
       min-height: 100vh;
       min-height: -webkit-fill-available;
-      background-color: #FAFAFA;
+      font-family: 'Roboto', sans-serif;
       
       ::-webkit-scrollbar-track {
         border-radius: 10px;

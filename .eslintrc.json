@@ -27,11 +27,12 @@
     ],
     "import/prefer-default-export": "off",
     "react/prop-types": "off",
+    "treatUndefinedAsUnspecified": 0,
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "no-shadow": "off",
+    "no-shadow": "error",
     "prettier/prettier": [
-      "error",
+      "off",
       { "singleQuote": true, "trailingComma": "all", "endOfLine": "auto" }
     ],
     "react/function-component-definition": [
