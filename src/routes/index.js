@@ -4,5 +4,6 @@ export const routes = {
   error: '*',
   mainHome: '/mainHome',
   calendar: '/calendar',
-  registration: '/registration'
+  registration: '/registration',
+  tasks: '/tasks'
 };

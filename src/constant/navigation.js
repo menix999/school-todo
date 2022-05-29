@@ -1,4 +1,4 @@
-import { HomeIcon, CalendarAltIcon } from 'react-line-awesome';
+import { HomeIcon, CalendarAltIcon, PlusCircleIcon } from 'react-line-awesome';
 import { routes } from '../routes';
 
 export const navigationArray = [
@@ -7,13 +7,20 @@ export const navigationArray = [
     text: 'Home',
     slug: 'home',
     path: routes.mainHome,
-    Icon: HomeIcon,
+    Icon: HomeIcon
   },
   {
     id: 2,
+    text: 'My Tasks',
+    slug: 'mytasks',
+    path: routes.tasks,
+    Icon: PlusCircleIcon
+  },
+  {
+    id: 3,
     text: 'Calendar',
     slug: 'calendar',
     path: routes.calendar,
-    Icon: CalendarAltIcon,
-  },
+    Icon: CalendarAltIcon
+  }
 ];

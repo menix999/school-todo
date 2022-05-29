@@ -8,15 +8,14 @@ const Wrapper = styled.div`
   flex-direction: column;
   background-color: ${({ theme }) => theme.colors.sideBarNav};
   transition: 0.24s ease-in-out;
-
   ${({ isOpen }) =>
     isOpen
       ? css`
-          width: 190px;
+          width: 320px;
         `
       : css`
           width: 70px;
-        `}
+        `};
 `;
 
 const Divider = styled.div`

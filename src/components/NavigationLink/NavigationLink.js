@@ -4,12 +4,13 @@ import styled from 'styled-components';
 const ListItemText = styled.div`
   opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
   transition: opacity 0.24s ease-in-out;
+  white-space: nowrap;
 `;
 
 const StyledListItemButton = styled.div`
   display: flex;
-  padding: 12px 21px;
-  font-size: 28px;
+  padding: 12px 20px;
+  font-size: 20px;
   color: ${({ theme, match }) => match && theme.colors.black};
 
   transition: 0.3s;
