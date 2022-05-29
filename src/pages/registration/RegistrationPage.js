@@ -36,7 +36,17 @@ const RegistrationPage = () => {
     fetch('http://93.91.208.217/api/register', options)
       .then((res) => res.json())
       .then((data) => setResponse(data.message));
+
+    console.log(options);
   };
+
+  // const handleSubmit = async () => {
+  //   try {
+  //     const data =
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   return (
     <Wrapper>

@@ -9,8 +9,8 @@ const ListItemText = styled.div`
 
 const StyledListItemButton = styled.div`
   display: flex;
-  padding: 12px 21px;
-  font-size: 26px;
+  padding: 12px 20px;
+  font-size: 20px;
   color: ${({ theme, match }) => match && theme.colors.black};
 
   transition: 0.3s;
