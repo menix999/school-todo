@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { EyeIcon, EyeSlashIcon } from 'react-line-awesome';
 import {
   Wrapper,
   Mainbox,
@@ -16,6 +17,7 @@ export const ResponseMessage = styled.h3`
   text-align: center;
 `;
 const RegistrationPage = () => {
+  const [isPasswordActive, setIsPasswordActive] = useState(false);
   const [response, setResponse] = useState('');
   const [formData, setFormData] = useState({
     name: '',
@@ -47,6 +49,10 @@ const RegistrationPage = () => {
   //     console.log(e);
   //   }
   // };
+
+  const handlePasswordChange = () => {
+    setIsPasswordActive((prevValue) => !prevValue);
+  };
 
   return (
     <Wrapper>
