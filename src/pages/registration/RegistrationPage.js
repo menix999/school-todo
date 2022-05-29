@@ -51,7 +51,7 @@ const RegistrationPage = () => {
   return (
     <Wrapper>
       <Mainbox>
-        <Title>Rejestracja</Title>
+        <Title>Registration</Title>
         <LoginForm>
           <TextInput
             onChange={(e) => {
@@ -64,14 +64,14 @@ const RegistrationPage = () => {
             onChange={(e) => {
               setFormData((prev) => ({ ...prev, password: e.target.value }));
             }}
-            type="text"
+            type="password"
             placeholder="password"
           />
           <TextInput
             onChange={(e) => {
               setFormData((prev) => ({ ...prev, c_password: e.target.value }));
             }}
-            type="text"
+            type="password"
             placeholder="confirm password"
           />
           <TextInput
@@ -82,9 +82,7 @@ const RegistrationPage = () => {
             placeholder="e-mail"
           />
         </LoginForm>
-        <SubmitButton onClick={() => submitForm()}>
-          Zarejestruj się
-        </SubmitButton>
+        <SubmitButton onClick={() => submitForm()}>Register</SubmitButton>
         <ResponseMessage>{response}</ResponseMessage>
       </Mainbox>
     </Wrapper>
