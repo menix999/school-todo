@@ -67,12 +67,12 @@ const LoginPage = () => {
   return (
     <Wrapper>
       <Mainbox>
-        <Title>Logowanie</Title>
+        <Title>Log in</Title>
         <LoginForm>
           <TextInput type="text" placeholder="login" />
           <TextInput type="text" placeholder="password" />
         </LoginForm>
-        <SubmitButton>Zaloguj się</SubmitButton>
+        <SubmitButton>Log in</SubmitButton>
       </Mainbox>
     </Wrapper>
   );
