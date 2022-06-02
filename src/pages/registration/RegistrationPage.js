@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { EyeIcon, EyeSlashIcon } from 'react-line-awesome';
 import {
   Wrapper,
@@ -7,26 +6,30 @@ import {
   Title,
   LoginForm,
   SubmitButton,
-  TextInput
+  TextInput,
+  InputWrapper,
+  IconWrapper,
+  ResponseMessage
 } from '../login/LoginPage';
 
-export const ResponseMessage = styled.h3`
-  color: red;
-  font-size: 1rem;
-  padding-top: 2rem;
-  text-align: center;
-`;
+import { useSetDocumentTitle } from '../../hooks/useSetDocumentTitle';
+
 const RegistrationPage = () => {
-  const [isPasswordActive, setIsPasswordActive] = useState(false);
-  const [response, setResponse] = useState('');
+  const [isPasswordActive, setIsPasswordActive] = useState({
+    pass: false,
+    c_pass: false
+  });
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     c_password: ''
   });
+  const [response, setResponse] = useState('');
 
-  const submitForm = () => {
+  useSetDocumentTitle('Registration');
+
+  const submitForm = async () => {
     const options = {
       method: 'POST',
       headers: {
@@ -35,23 +38,19 @@ const RegistrationPage = () => {
       },
       body: JSON.stringify(formData)
     };
-    fetch('http://93.91.208.217/api/register', options)
-      .then((res) => res.json())
-      .then((data) => setResponse(data.message));
 
-    console.log(options);
+    await fetch('http://93.91.208.217/api/register', options)
+      .then((res) => res.json())
+      .then((data) => setResponse(data.message))
+      .catch((err) => setResponse(err.message));
   };
 
-  // const handleSubmit = async () => {
-  //   try {
-  //     const data =
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
-  const handlePasswordChange = () => {
-    setIsPasswordActive((prevValue) => !prevValue);
+  const handlePasswordChange = (e) => {
+    if (e.currentTarget.id === 'pass') {
+      setIsPasswordActive((prev) => ({ ...prev, pass: !prev.pass }));
+    } else if (e.currentTarget.id === 'c_pass') {
+      setIsPasswordActive((prev) => ({ ...prev, c_pass: !prev.c_pass }));
+    }
   };
 
   return (
@@ -59,34 +58,52 @@ const RegistrationPage = () => {
       <Mainbox>
         <Title>Registration</Title>
         <LoginForm>
-          <TextInput
-            onChange={(e) => {
-              setFormData((prev) => ({ ...prev, name: e.target.value }));
-            }}
-            type="text"
-            placeholder="login"
-          />
-          <TextInput
-            onChange={(e) => {
-              setFormData((prev) => ({ ...prev, password: e.target.value }));
-            }}
-            type="password"
-            placeholder="password"
-          />
-          <TextInput
-            onChange={(e) => {
-              setFormData((prev) => ({ ...prev, c_password: e.target.value }));
-            }}
-            type="password"
-            placeholder="confirm password"
-          />
-          <TextInput
-            onChange={(e) => {
-              setFormData((prev) => ({ ...prev, email: e.target.value }));
-            }}
-            type="email"
-            placeholder="e-mail"
-          />
+          <InputWrapper>
+            <TextInput
+              onChange={(e) => {
+                setFormData((prev) => ({ ...prev, name: e.target.value }));
+              }}
+              type="text"
+              placeholder="login"
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <TextInput
+              onChange={(e) => {
+                setFormData((prev) => ({ ...prev, password: e.target.value }));
+              }}
+              type={isPasswordActive.pass ? 'text' : 'password'}
+              placeholder="password"
+            />
+            <IconWrapper id="pass" onClick={handlePasswordChange}>
+              {isPasswordActive.pass ? <EyeIcon /> : <EyeSlashIcon />}
+            </IconWrapper>
+          </InputWrapper>
+          <InputWrapper>
+            <TextInput
+              onChange={(e) => {
+                setFormData((prev) => ({
+                  ...prev,
+                  c_password: e.target.value
+                }));
+              }}
+              type={isPasswordActive.c_pass ? 'text' : 'password'}
+              id="c_pass"
+              placeholder="confirm password"
+            />
+            <IconWrapper id="c_pass" onClick={handlePasswordChange}>
+              {isPasswordActive.c_pass ? <EyeIcon /> : <EyeSlashIcon />}
+            </IconWrapper>
+          </InputWrapper>
+          <InputWrapper>
+            <TextInput
+              onChange={(e) => {
+                setFormData((prev) => ({ ...prev, email: e.target.value }));
+              }}
+              type="email"
+              placeholder="e-mail"
+            />
+          </InputWrapper>
         </LoginForm>
         <SubmitButton onClick={() => submitForm()}>Register</SubmitButton>
         <ResponseMessage>{response}</ResponseMessage>
