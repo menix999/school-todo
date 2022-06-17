@@ -12,6 +12,8 @@ const StyledListItemButton = styled.div`
   padding: 12px 20px;
   font-size: 20px;
   color: ${({ theme, match }) => match && theme.colors.black};
+  background-color: ${({ theme, match }) =>
+    match && theme.colors.checkedNavSideBar};
 
   transition: 0.3s;
   :hover {
@@ -31,8 +33,8 @@ const NavigationLink = ({ data, isOpen }) => {
 
   return (
     <Link to={path}>
-      <StyledListItemButton>
-        <StyledListItemIcon match={match ? 1 : 0}>
+      <StyledListItemButton match={match ? 1 : 0}>
+        <StyledListItemIcon>
           <Icon />
         </StyledListItemIcon>
         <ListItemText isOpen={isOpen}>{isOpen && text}</ListItemText>

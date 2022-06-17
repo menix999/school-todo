@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   align-items: center;
 `;
 
-export const Mainbox = styled.div`
+export const Mainbox = styled.form`
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -42,6 +42,7 @@ export const SubmitButton = styled.button`
   box-shadow: 0 0 0.5em black;
   transition: 0.2s;
   padding: 0.3rem;
+  margin-top: 20px;
   :hover {
     transform: scale(1.04);
   }
@@ -74,11 +75,13 @@ export const IconWrapper = styled.div`
   cursor: pointer;
 `;
 
-export const ResponseMessage = styled.h3`
-  color: red;
-  font-size: 1rem;
-  margin-top: 2rem;
-  text-align: center;
+export const ResponseErrorMessage = styled.p`
+  position: absolute;
+  color: ${({ theme }) => theme.colors.error};
+  font-size: 11px;
+  font-weight: ${({ theme }) => theme.weight.bold};
+  margin: 8px 0 0 4px;
+  text-align: left;
 `;
 const LoginPage = () => {
   useSetDocumentTitle('Login');
