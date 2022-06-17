@@ -12,7 +12,7 @@ import AuthorizationTemplate from './templates/AuthorizationTemplate';
 import Page404 from './pages/Page404/Page404';
 import DashboardTemplate from './templates/DashboardTemplate';
 import MainHome from './pages/MainHome/MainHome';
-import Calendar from './pages/calendar/Calendar';
+import Calendarr from './pages/calendar/Calendarr';
 import Tasks from './pages/tasks/Tasks';
 import RegistrationPage from './pages/registration/RegistrationPage';
 
@@ -26,7 +26,7 @@ const App = () => {
 
           <Route element={<DashboardTemplate />}>
             <Route path={routes.mainHome} element={<MainHome />} />
-            <Route path={routes.calendar} element={<Calendar />} />
+            <Route path={routes.calendar} element={<Calendarr />} />
             <Route path={routes.tasks} element={<Tasks />} />
           </Route>
 

@@ -1,7 +1,12 @@
 import React from 'react';
+import { Wrapper, Title } from '../tasks/Tasks';
 
 const MainHome = () => {
-  return <div>MaidawdawdawdoihajwpdiouahjwpdnHome</div>;
+  return (
+    <Wrapper>
+      <Title>Main</Title>
+    </Wrapper>
+  );
 };
 
 export default MainHome;
