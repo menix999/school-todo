@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
 import { EyeIcon, EyeSlashIcon } from 'react-line-awesome';
 import {
   Wrapper,
@@ -9,8 +11,9 @@ import {
   TextInput,
   InputWrapper,
   IconWrapper,
-  ResponseMessage
+  ResponseErrorMessage
 } from '../login/LoginPage';
+import { emailReg } from '../../utils/emailReg';
 
 import { useSetDocumentTitle } from '../../hooks/useSetDocumentTitle';
 
@@ -19,30 +22,31 @@ const RegistrationPage = () => {
     pass: false,
     c_pass: false
   });
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    c_password: ''
-  });
-  const [response, setResponse] = useState('');
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors }
+  } = useForm();
 
   useSetDocumentTitle('Registration');
 
-  const submitForm = async () => {
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'aplication/json'
-      },
-      body: JSON.stringify(formData)
-    };
+  const onSubmit = async (data) => {
+    const { email, name, password, c_password } = data;
 
-    await fetch('http://93.91.208.217/api/register', options)
-      .then((res) => res.json())
-      .then((data) => setResponse(data.message))
-      .catch((err) => setResponse(err.message));
+    try {
+      await axios
+        .post('http://93.91.208.217/api/register', {
+          email,
+          name,
+          password,
+          c_password
+        })
+        .then((res) => console.log(res));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handlePasswordChange = (e) => {
@@ -55,58 +59,86 @@ const RegistrationPage = () => {
 
   return (
     <Wrapper>
-      <Mainbox>
+      <Mainbox onSubmit={handleSubmit(onSubmit)}>
         <Title>Registration</Title>
         <LoginForm>
           <InputWrapper>
             <TextInput
-              onChange={(e) => {
-                setFormData((prev) => ({ ...prev, name: e.target.value }));
-              }}
               type="text"
               placeholder="login"
+              {...register('name', {
+                minLength: {
+                  value: 3,
+                  message: 'The minimum length of characters is 3'
+                },
+                maxLength: {
+                  value: 20,
+                  message: 'Too many characters max 20'
+                }
+              })}
             />
+            <ResponseErrorMessage>{errors?.name?.message}</ResponseErrorMessage>
           </InputWrapper>
           <InputWrapper>
             <TextInput
-              onChange={(e) => {
-                setFormData((prev) => ({ ...prev, password: e.target.value }));
-              }}
               type={isPasswordActive.pass ? 'text' : 'password'}
               placeholder="password"
+              {...register('password', {
+                minLength: {
+                  value: 6,
+                  message: 'The minimum length of characters is 6'
+                },
+                maxLength: {
+                  value: 20,
+                  message: 'Too many characters max 20'
+                }
+              })}
             />
             <IconWrapper id="pass" onClick={handlePasswordChange}>
               {isPasswordActive.pass ? <EyeIcon /> : <EyeSlashIcon />}
             </IconWrapper>
+            <ResponseErrorMessage>
+              {errors?.password?.message}
+            </ResponseErrorMessage>
           </InputWrapper>
           <InputWrapper>
             <TextInput
-              onChange={(e) => {
-                setFormData((prev) => ({
-                  ...prev,
-                  c_password: e.target.value
-                }));
-              }}
               type={isPasswordActive.c_pass ? 'text' : 'password'}
               id="c_pass"
               placeholder="confirm password"
+              {...register('c_password', {
+                validate: (value) =>
+                  value === watch('password') || 'Password do not match'
+              })}
             />
             <IconWrapper id="c_pass" onClick={handlePasswordChange}>
               {isPasswordActive.c_pass ? <EyeIcon /> : <EyeSlashIcon />}
             </IconWrapper>
+            <ResponseErrorMessage>
+              {errors?.c_password?.message}
+            </ResponseErrorMessage>
           </InputWrapper>
           <InputWrapper>
             <TextInput
-              onChange={(e) => {
-                setFormData((prev) => ({ ...prev, email: e.target.value }));
-              }}
-              type="email"
+              type="text"
               placeholder="e-mail"
+              {...register('email', {
+                required: {
+                  value: true,
+                  message: 'Field cannot be empty'
+                },
+                pattern: {
+                  value: emailReg,
+                  message: 'Structure of address e-mail is incorrect'
+                }
+              })}
             />
+            <ResponseErrorMessage>
+              {errors?.email?.message}
+            </ResponseErrorMessage>
           </InputWrapper>
+          <SubmitButton type="submit">Register</SubmitButton>
         </LoginForm>
-        <SubmitButton onClick={() => submitForm()}>Register</SubmitButton>
-        <ResponseMessage>{response}</ResponseMessage>
       </Mainbox>
     </Wrapper>
   );

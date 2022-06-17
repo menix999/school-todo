@@ -5,6 +5,7 @@ export const theme = {
     navigationMain: '#D6D6D6',
     sideBarNav: '#F1F1F1',
     checkedNavSideBar: '#C9C9C9',
+    error: '#ff3333'
   },
   weight: {
     light: 300,
@@ -13,6 +14,6 @@ export const theme = {
     semiBold: 600,
     bold: 700,
     extraBold: 800,
-    black: 900,
-  },
+    black: 900
+  }
 };
