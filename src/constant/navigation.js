@@ -1,4 +1,4 @@
-import { HomeIcon, CalendarAltIcon, PlusCircleIcon } from 'react-line-awesome';
+import { HomeIcon, CalendarAltIcon, PlusCircleIcon, SignOutAltIcon } from 'react-line-awesome';
 import { routes } from '../routes';
 
 export const navigationArray = [
@@ -22,5 +22,12 @@ export const navigationArray = [
     slug: 'calendar',
     path: routes.calendar,
     Icon: CalendarAltIcon
-  }
+  }, 
+   {
+    id: 4,
+    text: 'Logout',
+    slug: 'logout',
+    path: routes.login,
+    Icon: SignOutAltIcon
+  },
 ];

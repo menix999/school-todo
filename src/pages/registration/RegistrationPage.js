@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { EyeIcon, EyeSlashIcon } from 'react-line-awesome';
+import { useNavigate } from 'react-router-dom';
 import {
   Wrapper,
   Mainbox,
@@ -31,9 +32,11 @@ const RegistrationPage = () => {
   } = useForm();
 
   useSetDocumentTitle('Registration');
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     const { email, name, password, c_password } = data;
+    navigate('/login');
 
     try {
       await axios
