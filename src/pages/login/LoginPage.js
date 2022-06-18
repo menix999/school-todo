@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-// import { emailReg } from '../../utils/emailReg';
+import { useNavigate } from 'react-router-dom';
 import { useSetDocumentTitle } from '../../hooks/useSetDocumentTitle';
 
 export const Wrapper = styled.div`
@@ -85,6 +85,11 @@ export const ResponseErrorMessage = styled.p`
 `;
 const LoginPage = () => {
   useSetDocumentTitle('Login');
+  const navigate = useNavigate();
+  const handleSubmit = () => {
+    navigate('/mainHome')
+  }
+
   return (
     <Wrapper>
       <Mainbox>
@@ -97,7 +102,7 @@ const LoginPage = () => {
             <TextInput type="text" placeholder="password" />
           </InputWrapper>
         </LoginForm>
-        <SubmitButton>Log in</SubmitButton>
+        <SubmitButton onClick={handleSubmit}>Log in</SubmitButton>
       </Mainbox>
     </Wrapper>
   );
