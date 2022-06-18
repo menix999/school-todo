@@ -1,11 +1,15 @@
 import React from 'react';
-import { Wrapper, Title } from '../tasks/Tasks';
+import styled from 'styled-components';
+import { Title } from '../tasks/Tasks';
 
+export const Wrapper = styled.div`
+  margin: 1rem;
+`;
 const MainHome = () => {
   return (
     <Wrapper>
       <Title>Welcome in our TODO app</Title>
-      <p1> Enjoy using the app</p1>
+      <p> Enjoy using the app</p>
     </Wrapper>
   );
 };

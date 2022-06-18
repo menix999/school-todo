@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { PlusCircleIcon } from 'react-line-awesome';
 
 export const Wrapper = styled.div`
   margin: 1rem;
   display: flex;
+  align-items: flex-start;
 `;
 export const Title = styled.h2`
   padding-bottom: 1rem;
@@ -35,22 +36,47 @@ const TaskItem = styled.li`
     background-color: ${({ theme }) => theme.colors.checkedNavSideBar};
   }
 `;
-const InputWrapper = styled.div``;
+const InputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 2.3rem;
+`;
 const TaskInput = styled.input`
   padding: 0.5rem 1rem;
   border-radius: 15px;
 `;
 
+const TaskButtonWrapper = styled.div`
+  cursor: pointer;
+`;
+
 const Tasks = () => {
   const [input, setInput] = useState('');
+  const [tasks, setTasks] = useState([]);
+  useEffect(() => {
+    getInitialItemsFromStorage();
+  }, []);
+
+  const getInitialItemsFromStorage = () => {
+    const items = { ...localStorage };
+    const arr = [];
+    for (const [key, value] of Object.entries(items)) {
+      if (/^(.*?(\b-todo\b)[^$]*)$/gm.test(key)) {
+        arr.push(value);
+      }
+    }
+    setTasks(arr);
+  };
 
   const handleStorageSave = () => {
     window.localStorage.setItem(`${input}-todo`, input);
+    const items = { ...localStorage };
+    for (const [key, value] of Object.entries(items)) {
+      if (/^(.*?(\b-todo\b)[^$]*)$/gm.test(key) && !tasks.includes(value)) {
+        setTasks((prev) => [...prev, value]);
+      }
+    }
   };
-
-  const items = { localStorage };
-  console.log(items);
-  console.log(/^(.*?(\b-todo\b)[^$]*)$/gm.test('dsadsad-todo'));
 
   return (
     <Wrapper>
@@ -58,9 +84,9 @@ const Tasks = () => {
         <Title>Personal</Title>
         <SectionTitle>Today</SectionTitle>
         <TasksWrapper>
-          <TaskItem>Pay the bills [600zl]</TaskItem>
-          <TaskItem>Do shopping [List in notes in phone]</TaskItem>
-          <TaskItem>Make dinner [Remember to buy meat]</TaskItem>
+          {tasks.map((item, id) => (
+            <TaskItem key={item}>{item}</TaskItem>
+          ))}
         </TasksWrapper>
         <SectionTitle>Tommorow</SectionTitle>
         <TasksWrapper>
@@ -73,10 +99,12 @@ const Tasks = () => {
         <Title>Add task</Title>
         <InputWrapper>
           <TaskInput
-            placeholder="dsada"
+            placeholder="Add new task"
             onChange={(e) => setInput(e.currentTarget.value)}
           />
-          <PlusCircleIcon onClick={handleStorageSave} />
+          <TaskButtonWrapper>
+            <PlusCircleIcon onClick={handleStorageSave} />
+          </TaskButtonWrapper>
         </InputWrapper>
       </Task>
     </Wrapper>

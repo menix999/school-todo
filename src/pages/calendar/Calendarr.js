@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
-import { Wrapper, Title } from '../tasks/Tasks';
+import { Title } from '../tasks/Tasks';
+import { Wrapper } from '../MainHome/MainHome';
 import 'react-calendar/dist/Calendar.css';
 
 const Calendarr = () => {
