@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { PlusCircleIcon } from 'react-line-awesome';
 
 export const Wrapper = styled.div`
   margin: 1rem;
+  display: flex;
 `;
 export const Title = styled.h2`
   padding-bottom: 1rem;
@@ -14,6 +16,7 @@ const Task = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.black};
   border-radius: 10px;
   padding: 1rem;
+  margin-left: 1rem;
 `;
 
 const SectionTitle = styled.h3`
@@ -32,12 +35,27 @@ const TaskItem = styled.li`
     background-color: ${({ theme }) => theme.colors.checkedNavSideBar};
   }
 `;
+const InputWrapper = styled.div``;
+const TaskInput = styled.input`
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+`;
 
 const Tasks = () => {
+  const [input, setInput] = useState('');
+
+  const handleStorageSave = () => {
+    window.localStorage.setItem(`${input}-todo`, input);
+  };
+
+  const items = { localStorage };
+  console.log(items);
+  console.log(/^(.*?(\b-todo\b)[^$]*)$/gm.test('dsadsad-todo'));
+
   return (
     <Wrapper>
-      <Title>Personal</Title>
       <Task>
+        <Title>Personal</Title>
         <SectionTitle>Today</SectionTitle>
         <TasksWrapper>
           <TaskItem>Pay the bills [600zl]</TaskItem>
@@ -50,6 +68,16 @@ const Tasks = () => {
           <TaskItem>Grandmas b-day</TaskItem>
         </TasksWrapper>
         <SectionTitle>Upcoming</SectionTitle>
+      </Task>
+      <Task>
+        <Title>Add task</Title>
+        <InputWrapper>
+          <TaskInput
+            placeholder="dsada"
+            onChange={(e) => setInput(e.currentTarget.value)}
+          />
+          <PlusCircleIcon onClick={handleStorageSave} />
+        </InputWrapper>
       </Task>
     </Wrapper>
   );
